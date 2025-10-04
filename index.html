@@ -8,106 +8,68 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap');
-body { margin:0; font-family:'Cormorant Garamond', serif; background:#0d1226; overflow:hidden; }
-
-/* Scene 1 */
-#scene1 { position:fixed; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(to bottom,#0d1226,#1a1f4b); color:white; text-align:center; z-index:1000; }
-#scene1 h1 { font-size:2.5rem; animation:bounce 2s infinite; }
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
-#scene1 button { margin-top:2rem; padding:0.75rem 2rem; background-color:#f472b6; border-radius:9999px; font-weight:bold; color:white; cursor:pointer; transition:all 0.3s; }
-#scene1 button:hover { background-color:#f9a8d4; transform:scale(1.05); }
-
-/* Scene 2 */
-#scene2 { display:none; position:relative; height:100vh; width:100%; overflow:hidden; }
-
-/* Aurora */
-.aurora { position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none; z-index:1; }
-.aurora-layer { position:absolute; bottom:0; width:150%; height:200%; border-radius:50%; opacity:0.6; filter:blur(80px); animation:aurora-move 40s infinite linear alternate; }
+body { background-color: #0d1226; font-family: 'Cormorant Garamond', serif; overflow-x: hidden; margin:0; }
+.aurora { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
+.aurora-layer { position: absolute; bottom: 0; width: 150%; height: 200%; border-radius: 50%; opacity: 0.6; filter: blur(80px); animation: aurora-move 40s infinite linear alternate; }
 .aurora-layer:nth-child(1){left:-20%;background:radial-gradient(circle,rgba(144,238,144,0.4)0%,transparent70%);animation-duration:35s;}
 .aurora-layer:nth-child(2){left:50%;background:radial-gradient(circle,rgba(173,216,230,0.5)0%,transparent65%);animation-duration:45s;animation-delay:-10s;}
 .aurora-layer:nth-child(3){left:10%;background:radial-gradient(circle,rgba(70,130,180,0.4)0%,transparent80%);animation-duration:40s;animation-delay:-5s;}
 @keyframes aurora-move{0%{transform:translate(0,0)rotate(0deg);}50%{transform:translate(-10%,10%)rotate(5deg);}100%{transform:translate(0,0)rotate(0deg);}}
-
-/* Snow */
 .snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;}
 .snow{position:absolute;width:3px;height:3px;background:transparent;border-radius:50%;opacity:0.8;
 box-shadow:0 0 1px #fff,20px 100px 1px rgba(255,255,255,0.8),40px 200px 1px rgba(255,255,255,0.7),
 60px 300px 1px rgba(255,255,255,0.9),80px 400px 1px rgba(255,255,255,0.6),100px 500px 1px rgba(255,255,255,0.8);
 animation:snowfall 20s linear infinite;}
 @keyframes snowfall{0%{transform:translateY(-100vh);}100%{transform:translateY(100vh);}}
-
-/* Birds */
 .bird-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:6;}
 .bird{position:absolute;width:32px;height:32px;fill:#5e3814;opacity:0.8;animation:fly-across linear infinite;}
 @keyframes fly-across{0%{transform:translate(-10vw,80vh)scale(0.8)rotate(5deg);}50%{transform:translate(50vw,40vh)scale(1)rotate(-5deg);}100%{transform:translate(110vw,60vh)scale(0.8)rotate(5deg);}}
 .bird-1{top:10%;left:-5%;animation-duration:40s;}
 .bird-2{top:30%;left:-15%;animation-duration:35s;animation-delay:10s;}
 .bird-3{top:50%;left:-25%;animation-duration:45s;animation-delay:20s;}
-
-.letter-content{white-space:pre-wrap; z-index:10; color:white;}
-
-/* Fireworks */
-#fireworkCanvas{position:fixed; inset:0; pointer-events:none; z-index:2;}
-
-/* Overlay */
-#startButtonOverlay{ display:flex; position: fixed; inset:0; background:rgba(0,0,0,0.7); align-items:center; justify-content:center; z-index:50; }
-#startButtonOverlay button{ padding:0.75rem 2rem; background-color:#f472b6; color:white; font-weight:bold; border-radius:9999px; cursor:pointer; transition:all 0.3s; }
-#startButtonOverlay button:hover{ background-color:#f9a8d4; transform:scale(1.05);}
+.letter-content{white-space:pre-wrap; z-index:10;}
+#startButtonOverlay{transition:opacity 1.5s ease-in-out; cursor:pointer; position:fixed; inset:0; display:flex; justify-content:center; align-items:center; z-index:50;}
+#startButtonOverlay button{padding:0.75rem 2rem; background-color:#f472b6; color:white; font-weight:bold; border-radius:9999px; cursor:pointer; transition:all 0.3s;}
+#startButtonOverlay button:hover{background-color:#f9a8d4; transform:scale(1.05);}
 </style>
 </head>
-<body>
+<body class="flex items-center justify-center p-4">
 
-<!-- Scene 1 -->
-<div id="scene1">
-    <h1>Even This Letter Can't Tell How Much I Love You Raisyatul</h1>
-    <button id="scene1Next">Enter</button>
+<!-- Aurora -->
+<div class="aurora">
+    <div class="aurora-layer"></div><div class="aurora-layer"></div><div class="aurora-layer"></div>
 </div>
 
-<!-- Scene 2 -->
-<div id="scene2">
-    <canvas id="fireworkCanvas"></canvas>
+<!-- Birds -->
+<div class="bird-container">
+    <div class="bird bird-1"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+    <div class="bird bird-2"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+    <div class="bird bird-3"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+</div>
 
-    <!-- Aurora -->
-    <div class="aurora">
-        <div class="aurora-layer"></div>
-        <div class="aurora-layer"></div>
-        <div class="aurora-layer"></div>
+<!-- Snow -->
+<div class="snow-container"><div class="snow"></div></div>
+
+<!-- Music -->
+<audio id="bgmusic" preload="auto"><source src="love.mp3" type="audio/mpeg"></audio>
+
+<!-- Letter -->
+<main class="relative z-20 w-full max-w-2xl my-8">
+    <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 sm:p-12 rounded-3xl shadow-2xl border border-white border-opacity-20 text-white leading-relaxed">
+        <h1 class="text-3xl sm:text-4xl font-semibold text-center mb-6 text-pink-200">The Girl I Always Admire</h1>
+        <pre id="letterText" class="letter-content text-lg sm:text-xl md:text-2xl tracking-wide text-gray-100 p-2 overflow-auto h-[70vh] md:h-[80vh]">
+[PUT FULL LOVE LETTER HERE]
+        </pre>
     </div>
+</main>
 
-    <!-- Birds -->
-    <div class="bird-container">
-        <div class="bird bird-1"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
-        <div class="bird bird-2"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
-        <div class="bird bird-3"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
-    </div>
-
-    <!-- Snow -->
-    <div class="snow-container"><div class="snow"></div></div>
-
-    <!-- Letter -->
-    <main class="relative z-20 w-full max-w-2xl my-8 mx-auto">
-        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 sm:p-12 rounded-3xl shadow-2xl border border-white border-opacity-20 text-white leading-relaxed">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-center mb-6 text-pink-200">The Girl I Always Admire</h1>
-            <pre id="letterText" class="letter-content text-lg sm:text-xl md:text-2xl tracking-wide p-2 overflow-auto h-[70vh] md:h-[80vh]">
-[PUT FULL LETTER HERE]
-            </pre>
-        </div>
-    </main>
-
-    <!-- Overlay -->
-    <div id="startButtonOverlay">
-        <button onclick="startExperience()">I LOVE YOU SO MUCH RAISYA</button>
-    </div>
+<!-- Overlay -->
+<div id="startButtonOverlay">
+    <button onclick="startExperience()">I LOVE YOU SO MUCH RAISYA</button>
 </div>
 
 <script>
-// Scene 1 Enter button
-document.getElementById("scene1Next").addEventListener("click", () => {
-    document.getElementById("scene1").style.display = "none";
-    document.getElementById("scene2").style.display = "block";
-});
-
-// Tone.js Music
+// --- Tone.js Music ---
 const synth = new Tone.PolySynth(Tone.Synth,{
     oscillator:{type:'sine'},
     envelope:{attack:1,decay:0.5,sustain:0.5,release:2}
@@ -124,12 +86,13 @@ const sequence=new Tone.Sequence((time,i)=>{
 sequence.loop = true;
 sequence.loopEnd = "4m";
 
-// Start button function
+// --- Start Function ---
 function startExperience(){
     const music=document.getElementById("bgmusic");
     music.volume=0.6;
     music.loop=true;
-    music.play().catch(()=>{}); // autoplay issues
+    music.play().catch(()=>{}); // fixes autoplay issues
+    music.addEventListener('ended',()=>{music.currentTime=0;music.play();}); // endless loop
 
     if(Tone.context.state!=='running'){Tone.start();}
     Tone.Transport.start();
@@ -138,20 +101,6 @@ function startExperience(){
     overlay.style.opacity=0;
     setTimeout(()=>overlay.remove(),1500);
 }
-
-// Simple fireworks
-const canvas = document.getElementById("fireworkCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const fireworks=[]; function random(min,max){return Math.random()*(max-min)+min;}
-function Firework(){this.x=random(0,canvas.width);this.y=canvas.height;this.targetY=random(100,canvas.height/2);this.color=`hsl(${random(0,360)},100%,50%)`;}
-Firework.prototype.update=function(){this.y-=4;if(this.y<this.targetY){fireworks.splice(fireworks.indexOf(this),1);}}
-Firework.prototype.draw=function(){ctx.beginPath();ctx.arc(this.x,this.y,3,0,Math.PI*2);ctx.fillStyle=this.color;ctx.fill();}
-function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);if(Math.random()<0.03)fireworks.push(new Firework());fireworks.forEach(f=>{f.update();f.draw();});requestAnimationFrame(loop);}
-loop();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 </script>
-<audio id="bgmusic" preload="auto"><source src="love.mp3" type="audio/mpeg"></audio>
 </body>
 </html>
