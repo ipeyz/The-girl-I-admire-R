@@ -108,15 +108,20 @@ const sequence = new Tone.Sequence((time,i)=>{
 sequence.loop = true;
 sequence.loopEnd = "4m";
 
-// --- Start Function with seamless looping ---
+// --- Start Function with smooth fade-in ---
 function startExperience(){
-    // Tone.Player for gapless loop
-    const player = new Tone.Player("love.mp3").toDestination();
-    player.loop = true;
-    player.autostart = true;
-
-    // Start Tone.js context
     if(Tone.context.state !== 'running'){ Tone.start(); }
+
+    // Create player with fade-in
+    const player = new Tone.Player({
+        url: "love.mp3",
+        loop: true,
+        autostart: true,
+        volume: -20  // start low
+    }).toDestination();
+
+    // Gradually fade in volume over 3 seconds
+    player.volume.rampTo(0, 3);
 
     // Start synth sequence
     Tone.Transport.start();
