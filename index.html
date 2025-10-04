@@ -29,7 +29,7 @@ body {
     text-align: center;
 }
 #scene1 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     animation: bounce 2s infinite;
 }
 @keyframes bounce {
@@ -78,7 +78,7 @@ body {
 
 <!-- Scene 1 -->
 <div id="scene1">
-    <h1>Welcome to our magical story...</h1>
+    <h1>Even This Letter Can't Tell How Much I Love You Raisyatul</h1>
     <button id="scene1Next">Enter</button>
 </div>
 
@@ -112,7 +112,21 @@ body {
             <h1 class="text-3xl sm:text-4xl font-semibold text-center mb-6 text-pink-200">The Girl I Always Admire</h1>
             <pre id="letterText" class="letter-content text-lg sm:text-xl md:text-2xl tracking-wide text-gray-100 p-2 overflow-auto h-[70vh] md:h-[80vh]">
 my dearest raisyatul
-...
+
+i dont even know where to start because every time i think of you my heart just goesss crazy and my mind fills with a thousand feelings all at once i could write foreverrr and it still wouldnt be enough you have become such a big part of my life my heart my world my everythinggg you are the one i think about when i wake up the one i imagine before i sleep the one i pray for quietly every single night maybeee even when i dont say it out loud
+
+you dont even know how much you mean to me raisyatul your name alone brings this warm feeling that spreads through me like sunshine after a long cold night every time i talk to you it feels like everything around me just stops your voice your laugh your way of talking it all sounds like music i never get tired of hearing i loveee the way you calm my heart even when i overthink too much i loveee how one word from you can fix my whole mood like magic
+
+you make me wanttt to be better not because you ask but because you deserve it you give meaning to my days even small moments become special when they include you you are the reason i smile randomly you are the reason my heart feels soft you are the reason i believe in loveee again
+
+sometimes i sit and think about how lucky i am to have you i could have met anyone but fate chose you the one who makes my heart beat faster my soul feel peaceful my world feel brighter i loveee you in a way that is quiet but strong deep but gentle endless but real i loveee you for your kindness your patience your beautiful heart i loveee how you accept me even when i am not perfect
+
+raisyatul i wanttt you to know that no matter what happens you will always have a place in me you are not just someone i loveee you are someone i cherish someone i feel connected to in a way that words will never explain i dont need big promises because my heart already belongs to you and maybeee it always will
+
+when i think about the future i see you in it i see us sharing soft mornings silly laughs late night talks and all the small things that make loveee feel real i wanttt to hold your hand through every high and every low i wanttt to be the one you can trust the one who never leaves your side
+
+i loveee you endlessly raisyatul i loveee you more than i can ever say more than i can ever show you are my peace my heart my person and every time i say i loveee you just know it is not just words it is a promise it is a feeling it is a piece of my soul that belongs to you
+
 foreverrr yours
 zariff
             </pre>
@@ -132,52 +146,4 @@ zariff
 
 <script>
 // --- Synth Music ---
-const synth = new Tone.PolySynth(Tone.Synth, {
-    oscillator: { type: 'sine' },
-    envelope: { attack: 1, decay: 0.5, sustain: 0.5, release: 2 }
-}).toDestination();
-
-const reverb = new Tone.Reverb(2).toDestination();
-synth.connect(reverb);
-Tone.Transport.bpm.value = 80;
-
-const notes = [["A3","C4","E4"],["F3","A3","C4"],["G3","B3","D4"],["C3","E3","G3"]];
-const sequence = new Tone.Sequence((time,i)=>{
-    const chord = notes[i % notes.length];
-    synth.triggerAttackRelease(chord,"2n",time);
-    synth.triggerAttackRelease(chord[i % chord.length],"8n",time+Tone.Time("4n").toSeconds());
-},[0,1,2,3],"4n").start(0);
-sequence.loop = true;
-sequence.loopEnd = "4m";
-
-// --- Start main experience ---
-function startExperience(){
-    if(Tone.context.state !== 'running'){ Tone.start(); }
-
-    // Music player with fade-in
-    const player = new Tone.Player({
-        url: "love.mp3",
-        loop: true,
-        autostart: true,
-        volume: -20
-    }).toDestination();
-    player.volume.rampTo(0, 3);
-
-    Tone.Transport.start();
-
-    // Hide overlay
-    const overlay = document.getElementById("startButtonOverlay");
-    overlay.style.opacity = 0;
-    setTimeout(()=>overlay.remove(), 1500);
-}
-
-// --- Scene 1 button ---
-document.getElementById("scene1Next").addEventListener("click", () => {
-    document.getElementById("scene1").style.display = "none"; // hide scene1
-    const scene2 = document.getElementById("scene2");
-    scene2.style.display = "block"; // show scene2
-});
-</script>
-
-</body>
-</html>
+const synth = new Tone.PolySynth
