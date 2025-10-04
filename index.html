@@ -49,11 +49,6 @@
     <!-- Snow -->
     <div class="snow-container"><div class="snow"></div></div>
 
-    <!-- Music -->
-    <audio id="bgmusic" preload="auto">
-        <source src="love.mp3" type="audio/mpeg">
-    </audio>
-
     <!-- Letter -->
     <main class="relative z-20 w-full max-w-2xl my-8">
         <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 sm:p-12 rounded-3xl shadow-2xl border border-white border-opacity-20 text-white leading-relaxed">
@@ -86,13 +81,13 @@ zariff
         <div class="p-6 bg-white bg-opacity-10 rounded-xl border border-white border-opacity-20 shadow-xl text-center">
             <p class="text-xl sm:text-2xl text-white mb-4">A melody awaits...</p>
             <button onclick="startExperience()" class="px-6 py-3 bg-pink-500 hover:bg-pink-400 text-white font-bold rounded-full shadow-lg transition duration-300 transform hover:scale-105">
-                Click to Start the Magic
+                I LOVE YOU SO MUCH RAISYA
             </button>
         </div>
     </div>
 
     <script>
-        // --- Background Tone Music ---
+        // --- Synth Music ---
         const synth = new Tone.PolySynth(Tone.Synth, {
             oscillator: { type: 'sine' },
             envelope: { attack: 1, decay: 0.5, sustain: 0.5, release: 2 }
@@ -104,28 +99,18 @@ zariff
 
         const notes = [["A3","C4","E4"],["F3","A3","C4"],["G3","B3","D4"],["C3","E3","G3"]];
         const sequence = new Tone.Sequence((time,i)=>{
-            const chord=notes[i%notes.length];
+            const chord = notes[i % notes.length];
             synth.triggerAttackRelease(chord,"2n",time);
-            synth.triggerAttackRelease(chord[i%chord.length],"8n",time+Tone.Time("4n").toSeconds());
+            synth.triggerAttackRelease(chord[i % chord.length],"8n",time+Tone.Time("4n").toSeconds());
         },[0,1,2,3],"4n").start(0);
         sequence.loop = true;
         sequence.loopEnd = "4m";
 
-        // --- Start Function ---
+        // --- Start Function with seamless looping ---
         function startExperience(){
-            const music=document.getElementById("bgmusic");
-            music.volume=0.6;
-            music.loop=true;
-            music.play();
-            music.addEventListener('ended',()=>{music.currentTime=0;music.play();}); // ensures no delay restart
+            // Tone.Player for gapless loop
+            const player = new Tone.Player("love.mp3").toDestination();
+            player.loop = true;
+            player.autostart = true;
 
-            if(Tone.context.state!=='running'){Tone.start();}
-            Tone.Transport.start();
-
-            const overlay=document.getElementById("startButtonOverlay");
-            overlay.style.opacity=0;
-            setTimeout(()=>overlay.remove(),1500);
-        }
-    </script>
-</body>
-</html>
+            // Start Tone.js context
