@@ -8,150 +8,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap');
-
         body {
             background-color: #0d1226;
             font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
         }
-
-        .aurora {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .aurora-layer {
-            position: absolute;
-            bottom: 0;
-            width: 150%; height: 200%;
-            border-radius: 50%;
-            opacity: 0.6;
-            filter: blur(80px);
-            animation: aurora-move 40s infinite linear alternate;
-        }
-
-        .aurora-layer:nth-child(1) {
-            left: -20%;
-            background: radial-gradient(circle at center, rgba(144, 238, 144, 0.4) 0%, transparent 70%);
-            animation-duration: 35s;
-        }
-
-        .aurora-layer:nth-child(2) {
-            left: 50%;
-            background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5) 0%, transparent 65%);
-            animation-duration: 45s;
-            animation-delay: -10s;
-        }
-
-        .aurora-layer:nth-child(3) {
-            left: 10%;
-            background: radial-gradient(circle at center, rgba(70, 130, 180, 0.4) 0%, transparent 80%);
-            animation-duration: 40s;
-            animation-delay: -5s;
-        }
-
-        @keyframes aurora-move {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-10%, 10%) rotate(5deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
-        }
-
-        .snow-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .snow {
-            position: absolute;
-            width: 3px; height: 3px;
-            background: transparent;
-            border-radius: 50%;
-            opacity: 0.8;
-            box-shadow: 
-                0 0 1px #fff, 
-                20px 100px 1px rgba(255,255,255,0.8),
-                40px 200px 1px rgba(255,255,255,0.7),
-                60px 300px 1px rgba(255,255,255,0.9),
-                80px 400px 1px rgba(255,255,255,0.6),
-                100px 500px 1px rgba(255,255,255,0.8);
-            animation: snowfall 20s linear infinite;
-        }
-
-        @keyframes snowfall {
-            0% { transform: translateY(-100vh); }
-            100% { transform: translateY(100vh); }
-        }
-
-        .bird-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 6;
-        }
-
-        .bird {
-            position: absolute;
-            width: 32px; height: 32px;
-            fill: #5e3814;
-            opacity: 0.8;
-            animation: fly-across linear infinite;
-        }
-
-        @keyframes fly-across {
-            0% { transform: translate(-10vw, 80vh) scale(0.8) rotate(5deg); }
-            50% { transform: translate(50vw, 40vh) scale(1) rotate(-5deg); }
-            100% { transform: translate(110vw, 60vh) scale(0.8) rotate(5deg); }
-        }
-
-        .bird-1 { top: 10%; left: -5%; animation-duration: 40s; }
-        .bird-2 { top: 30%; left: -15%; animation-duration: 35s; animation-delay: 10s; }
-        .bird-3 { top: 50%; left: -25%; animation-duration: 45s; animation-delay: 20s; }
-
-        .letter-content { white-space: pre-wrap; z-index: 10; }
-
-        #startButtonOverlay {
-            transition: opacity 1.5s ease-in-out;
-            cursor: pointer;
-        }
+        .aurora { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
+        .aurora-layer { position: absolute; bottom: 0; width: 150%; height: 200%; border-radius: 50%; opacity: 0.6; filter: blur(80px); animation: aurora-move 40s infinite linear alternate; }
+        .aurora-layer:nth-child(1){left:-20%;background:radial-gradient(circle at center,rgba(144,238,144,0.4)0%,transparent70%);animation-duration:35s;}
+        .aurora-layer:nth-child(2){left:50%;background:radial-gradient(circle at center,rgba(173,216,230,0.5)0%,transparent65%);animation-duration:45s;animation-delay:-10s;}
+        .aurora-layer:nth-child(3){left:10%;background:radial-gradient(circle at center,rgba(70,130,180,0.4)0%,transparent80%);animation-duration:40s;animation-delay:-5s;}
+        @keyframes aurora-move{0%{transform:translate(0,0)rotate(0deg);}50%{transform:translate(-10%,10%)rotate(5deg);}100%{transform:translate(0,0)rotate(0deg);}}
+        .snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;}
+        .snow{position:absolute;width:3px;height:3px;background:transparent;border-radius:50%;opacity:0.8;box-shadow:0 0 1px #fff,20px 100px 1px rgba(255,255,255,0.8),40px 200px 1px rgba(255,255,255,0.7),60px 300px 1px rgba(255,255,255,0.9),80px 400px 1px rgba(255,255,255,0.6),100px 500px 1px rgba(255,255,255,0.8);animation:snowfall 20s linear infinite;}
+        @keyframes snowfall{0%{transform:translateY(-100vh);}100%{transform:translateY(100vh);}}
+        .bird-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:6;}
+        .bird{position:absolute;width:32px;height:32px;fill:#5e3814;opacity:0.8;animation:fly-across linear infinite;}
+        @keyframes fly-across{0%{transform:translate(-10vw,80vh)scale(0.8)rotate(5deg);}50%{transform:translate(50vw,40vh)scale(1)rotate(-5deg);}100%{transform:translate(110vw,60vh)scale(0.8)rotate(5deg);}}
+        .bird-1{top:10%;left:-5%;animation-duration:40s;}
+        .bird-2{top:30%;left:-15%;animation-duration:35s;animation-delay:10s;}
+        .bird-3{top:50%;left:-25%;animation-duration:45s;animation-delay:20s;}
+        .letter-content{white-space:pre-wrap;z-index:10;}
+        #startButtonOverlay{transition:opacity 1.5s ease-in-out;cursor:pointer;}
     </style>
 </head>
 <body class="flex items-center justify-center p-4">
 
     <!-- Aurora -->
     <div class="aurora">
-        <div class="aurora-layer"></div>
-        <div class="aurora-layer"></div>
-        <div class="aurora-layer"></div>
+        <div class="aurora-layer"></div><div class="aurora-layer"></div><div class="aurora-layer"></div>
     </div>
 
     <!-- Birds -->
     <div class="bird-container">
-        <div class="bird bird-1"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z" /></svg></div>
-        <div class="bird bird-2"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z" /></svg></div>
-        <div class="bird bird-3"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z" /></svg></div>
+        <div class="bird bird-1"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+        <div class="bird bird-2"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+        <div class="bird bird-3"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
     </div>
 
     <!-- Snow -->
-    <div class="snow-container">
-        <div class="snow"></div>
-    </div>
+    <div class="snow-container"><div class="snow"></div></div>
 
-    <!-- Love Letter -->
+    <!-- Music -->
+    <audio id="bgmusic" preload="auto">
+        <source src="love.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Letter -->
     <main class="relative z-20 w-full max-w-2xl my-8">
         <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 sm:p-12 rounded-3xl shadow-2xl border border-white border-opacity-20 text-white leading-relaxed">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-center mb-6 text-pink-200" style="font-family: 'Cormorant Garamond', serif;">
-                The Girl I Always Admire
-            </h1>
+            <h1 class="text-3xl sm:text-4xl font-semibold text-center mb-6 text-pink-200">The Girl I Always Admire</h1>
             <pre id="letterText" class="letter-content text-lg sm:text-xl md:text-2xl tracking-wide text-gray-100 p-2 overflow-auto h-[70vh] md:h-[80vh]">
-(💌 your letter text here 💌)
+my dearest raisyatul
+
+i dont even know where to start because every time i think of you my heart just goesss crazy and my mind fills with a thousand feelings all at once i could write foreverrr and it still wouldnt be enough you have become such a big part of my life my heart my world my everythinggg you are the one i think about when i wake up the one i imagine before i sleep the one i pray for quietly every single night maybeee even when i dont say it out loud
+
+you dont even know how much you mean to me raisyatul your name alone brings this warm feeling that spreads through me like sunshine after a long cold night every time i talk to you it feels like everything around me just stops your voice your laugh your way of talking it all sounds like music i never get tired of hearing i loveee the way you calm my heart even when i overthink too much i loveee how one word from you can fix my whole mood like magic
+
+you make me wanttt to be better not because you ask but because you deserve it you give meaning to my days even small moments become special when they include you you are the reason i smile randomly you are the reason my heart feels soft you are the reason i believe in loveee again
+
+sometimes i sit and think about how lucky i am to have you i could have met anyone but fate chose you the one who makes my heart beat faster my soul feel peaceful my world feel brighter i loveee you in a way that is quiet but strong deep but gentle endless but real i loveee you for your kindness your patience your beautiful heart i loveee how you accept me even when i am not perfect
+
+raisyatul i wanttt you to know that no matter what happens you will always have a place in me you are not just someone i loveee you are someone i cherish someone i feel connected to in a way that words will never explain i dont need big promises because my heart already belongs to you and maybeee it always will
+
+when i think about the future i see you in it i see us sharing soft mornings silly laughs late night talks and all the small things that make loveee feel real i wanttt to hold your hand through every high and every low i wanttt to be the one you can trust the one who never leaves your side
+
+i loveee you endlessly raisyatul i loveee you more than i can ever say more than i can ever show you are my peace my heart my person and every time i say i loveee you just know it is not just words it is a promise it is a feeling it is a piece of my soul that belongs to you
+
+foreverrr yours
+zariff
             </pre>
         </div>
     </main>
@@ -167,7 +92,8 @@
     </div>
 
     <script>
-        let synth = new Tone.PolySynth(Tone.Synth, {
+        // --- Background Tone Music ---
+        const synth = new Tone.PolySynth(Tone.Synth, {
             oscillator: { type: 'sine' },
             envelope: { attack: 1, decay: 0.5, sustain: 0.5, release: 2 }
         }).toDestination();
@@ -177,43 +103,29 @@
         Tone.Transport.bpm.value = 80;
 
         const notes = [["A3","C4","E4"],["F3","A3","C4"],["G3","B3","D4"],["C3","E3","G3"]];
-        let sequence = new Tone.Sequence((time,chordIndex)=>{
-            const chord=notes[chordIndex%notes.length];
+        const sequence = new Tone.Sequence((time,i)=>{
+            const chord=notes[i%notes.length];
             synth.triggerAttackRelease(chord,"2n",time);
-            const melodyNote=chord[chordIndex%chord.length];
-            synth.triggerAttackRelease(melodyNote,"8n",time+Tone.Time("4n").toSeconds());
+            synth.triggerAttackRelease(chord[i%chord.length],"8n",time+Tone.Time("4n").toSeconds());
         },[0,1,2,3],"4n").start(0);
+        sequence.loop = true;
+        sequence.loopEnd = "4m";
 
-        // 🎵 Seamless loop version (no delay)
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        let audioBuffer;
-
-        fetch('love.mp3')
-            .then(res => res.arrayBuffer())
-            .then(data => audioCtx.decodeAudioData(data))
-            .then(buffer => audioBuffer = buffer);
-
+        // --- Start Function ---
         function startExperience(){
-            // start your song seamlessly
-            if (audioBuffer) {
-                const source = audioCtx.createBufferSource();
-                source.buffer = audioBuffer;
-                source.loop = true;
-                source.connect(audioCtx.destination);
-                source.start(0);
-            }
+            const music=document.getElementById("bgmusic");
+            music.volume=0.6;
+            music.loop=true;
+            music.play();
+            music.addEventListener('ended',()=>{music.currentTime=0;music.play();}); // ensures no delay restart
 
-            // start the ambient synth
             if(Tone.context.state!=='running'){Tone.start();}
             Tone.Transport.start();
 
-            const overlay=document.getElementById('startButtonOverlay');
+            const overlay=document.getElementById("startButtonOverlay");
             overlay.style.opacity=0;
             setTimeout(()=>overlay.remove(),1500);
         }
-
-        sequence.loop=true;
-        sequence.loopEnd="4m";
     </script>
 </body>
 </html>
