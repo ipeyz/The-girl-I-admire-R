@@ -8,78 +8,54 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap');
-body { margin: 0; background-color: #0d1226; font-family: 'Cormorant Garamond', serif; overflow-x: hidden; }
-
-/* Scene 1 */
-#scene1 { position: fixed; inset: 0; background: linear-gradient(to bottom, #0d1226, #1a1f4b); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; color: white; text-align: center; }
-#scene1 h1 { font-size: 3rem; animation: bounce 2s infinite; }
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-#scene1 button { margin-top: 2rem; padding: 0.75rem 2rem; background-color: #f472b6; border-radius: 9999px; font-weight: bold; color: white; cursor: pointer; transition: all 0.3s; }
-#scene1 button:hover { background-color: #f9a8d4; transform: scale(1.05); }
-
-/* Scene 2 */
-#scene2 { display: none; }
-
-/* Aurora */
+body {
+    background-color: #0d1226;
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+}
 .aurora { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
 .aurora-layer { position: absolute; bottom: 0; width: 150%; height: 200%; border-radius: 50%; opacity: 0.6; filter: blur(80px); animation: aurora-move 40s infinite linear alternate; }
 .aurora-layer:nth-child(1){left:-20%;background:radial-gradient(circle at center,rgba(144,238,144,0.4)0%,transparent70%);animation-duration:35s;}
 .aurora-layer:nth-child(2){left:50%;background:radial-gradient(circle at center,rgba(173,216,230,0.5)0%,transparent65%);animation-duration:45s;animation-delay:-10s;}
 .aurora-layer:nth-child(3){left:10%;background:radial-gradient(circle at center,rgba(70,130,180,0.4)0%,transparent80%);animation-duration:40s;animation-delay:-5s;}
 @keyframes aurora-move{0%{transform:translate(0,0)rotate(0deg);}50%{transform:translate(-10%,10%)rotate(5deg);}100%{transform:translate(0,0)rotate(0deg);}}
-
 .snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;}
 .snow{position:absolute;width:3px;height:3px;background:transparent;border-radius:50%;opacity:0.8;box-shadow:0 0 1px #fff,20px 100px 1px rgba(255,255,255,0.8),40px 200px 1px rgba(255,255,255,0.7),60px 300px 1px rgba(255,255,255,0.9),80px 400px 1px rgba(255,255,255,0.6),100px 500px 1px rgba(255,255,255,0.8);animation:snowfall 20s linear infinite;}
 @keyframes snowfall{0%{transform:translateY(-100vh);}100%{transform:translateY(100vh);}}
-
 .bird-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:6;}
 .bird{position:absolute;width:32px;height:32px;fill:#5e3814;opacity:0.8;animation:fly-across linear infinite;}
 @keyframes fly-across{0%{transform:translate(-10vw,80vh)scale(0.8)rotate(5deg);}50%{transform:translate(50vw,40vh)scale(1)rotate(-5deg);}100%{transform:translate(110vw,60vh)scale(0.8)rotate(5deg);}}
 .bird-1{top:10%;left:-5%;animation-duration:40s;}
 .bird-2{top:30%;left:-15%;animation-duration:35s;animation-delay:10s;}
 .bird-3{top:50%;left:-25%;animation-duration:45s;animation-delay:20s;}
-
-.letter-content{white-space:pre-wrap; z-index:10;}
-#startButtonOverlay{transition:opacity 1.5s ease-in-out;cursor:pointer;opacity:1;pointer-events:auto;}
+.letter-content{white-space:pre-wrap;z-index:10;}
+#startButtonOverlay{transition:opacity 1.5s ease-in-out;cursor:pointer;pointer-events-auto;}
 </style>
 </head>
 <body class="flex items-center justify-center p-4">
 
-<!-- Scene 1 -->
-<div id="scene1">
-    <h1>Even This Letter Can't Tell How Much I Love You Raisyatul</h1>
-    <button id="scene1Next">Enter</button>
+<!-- Aurora -->
+<div class="aurora">
+    <div class="aurora-layer"></div>
+    <div class="aurora-layer"></div>
+    <div class="aurora-layer"></div>
 </div>
 
-<!-- Scene 2 -->
-<div id="scene2">
-    <!-- Aurora -->
-    <div class="aurora">
-        <div class="aurora-layer"></div>
-        <div class="aurora-layer"></div>
-        <div class="aurora-layer"></div>
-    </div>
+<!-- Birds -->
+<div class="bird-container">
+    <div class="bird bird-1"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+    <div class="bird bird-2"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+    <div class="bird bird-3"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
+</div>
 
-    <!-- Birds -->
-    <div class="bird-container">
-        <div class="bird bird-1"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
-        <div class="bird bird-2"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
-        <div class="bird bird-3"><svg viewBox="0 0 100 100"><path d="M0 50 L25 25 L50 50 Z M50 50 L75 25 L100 50 Z"/></svg></div>
-    </div>
+<!-- Snow -->
+<div class="snow-container"><div class="snow"></div></div>
 
-    <!-- Snow -->
-    <div class="snow-container"><div class="snow"></div></div>
-
-    <!-- Music -->
-    <audio id="bgmusic" preload="auto">
-        <source src="love.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Letter -->
-    <main class="relative z-20 w-full max-w-2xl my-8">
-        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 sm:p-12 rounded-3xl shadow-2xl border border-white border-opacity-20 text-white leading-relaxed">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-center mb-6 text-pink-200">The Girl I Always Admire</h1>
-            <pre id="letterText" class="letter-content text-lg sm:text-xl md:text-2xl tracking-wide text-gray-100 p-2 overflow-auto h-[70vh] md:h-[80vh]">
+<!-- Letter -->
+<main class="relative z-20 w-full max-w-2xl my-8">
+    <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 sm:p-12 rounded-3xl shadow-2xl border border-white border-opacity-20 text-white leading-relaxed">
+        <h1 class="text-3xl sm:text-4xl font-semibold text-center mb-6 text-pink-200">The Girl I Always Admire</h1>
+        <pre id="letterText" class="letter-content text-lg sm:text-xl md:text-2xl tracking-wide text-gray-100 p-2 overflow-auto h-[70vh] md:h-[80vh]">
 my dearest raisyatul
 
 i dont even know where to start because every time i think of you my heart just goesss crazy and my mind fills with a thousand feelings all at once i could write foreverrr and it still wouldnt be enough you have become such a big part of my life my heart my world my everythinggg you are the one i think about when i wake up the one i imagine before i sleep the one i pray for quietly every single night maybeee even when i dont say it out loud
@@ -90,7 +66,7 @@ you make me wanttt to be better not because you ask but because you deserve it y
 
 sometimes i sit and think about how lucky i am to have you i could have met anyone but fate chose you the one who makes my heart beat faster my soul feel peaceful my world feel brighter i loveee you in a way that is quiet but strong deep but gentle endless but real i loveee you for your kindness your patience your beautiful heart i loveee how you accept me even when i am not perfect
 
-sayaangg i wanttt you to know that no matter what happens you will always have a place in me you are not just someone i loveee you are someone i cherish someone i feel connected to in a way that words will never explain i dont need big promises because my heart already belongs to you and maybeee it always will
+raisyatul i wanttt you to know that no matter what happens you will always have a place in me you are not just someone i loveee you are someone i cherish someone i feel connected to in a way that words will never explain i dont need big promises because my heart already belongs to you and maybeee it always will
 
 when i think about the future i see you in it i see us sharing soft mornings silly laughs late night talks and all the small things that make loveee feel real i wanttt to hold your hand through every high and every low i wanttt to be the one you can trust the one who never leaves your side
 
@@ -98,12 +74,64 @@ i loveee you endlessly raisyatul i loveee you more than i can ever say more than
 
 foreverrr yours
 zariff
-            </pre>
-        </div>
-    </main>
+        </pre>
+    </div>
+</main>
 
-    <!-- Overlay -->
-    <div id="startButtonOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center z-50">
-        <div class="p-6 bg-white bg-opacity-10 rounded-xl border border-white border-opacity-20 shadow-xl text-center">
-            <p class="text-xl sm:text-2xl text-white mb-4">A melody awaits...</p>
-            <button onclick="startExperience()" class="px-6 py-3 bg-pink-500 hover:bg-pink-400 text-white font-bold rounded-full shadow-lg transition duration
+<!-- Overlay -->
+<div id="startButtonOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center z-50 pointer-events-auto">
+    <div class="p-6 bg-white bg-opacity-10 rounded-xl border border-white border-opacity-20 shadow-xl text-center pointer-events-auto">
+        <p class="text-xl sm:text-2xl text-white mb-4">A melody awaits...</p>
+        <button onclick="startExperience()" class="px-6 py-3 bg-pink-500 hover:bg-pink-400 text-white font-bold rounded-full shadow-lg transition duration-300 transform hover:scale-105 pointer-events-auto">
+            I LOVE YOU SO MUCH RAISYA
+        </button>
+    </div>
+</div>
+
+<script>
+// --- Synth Music ---
+const synth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: 'sine' },
+    envelope: { attack: 1, decay: 0.5, sustain: 0.5, release: 2 }
+}).toDestination();
+
+const reverb = new Tone.Reverb(2).toDestination();
+synth.connect(reverb);
+Tone.Transport.bpm.value = 80;
+
+const notes = [["A3","C4","E4"],["F3","A3","C4"],["G3","B3","D4"],["C3","E3","G3"]];
+const sequence = new Tone.Sequence((time,i)=>{
+    const chord = notes[i % notes.length];
+    synth.triggerAttackRelease(chord,"2n",time);
+    synth.triggerAttackRelease(chord[i % chord.length],"8n",time+Tone.Time("4n").toSeconds());
+},[0,1,2,3],"4n").start(0);
+sequence.loop = true;
+sequence.loopEnd = "4m";
+
+// --- Start Function with smooth fade-in ---
+function startExperience(){
+    if(Tone.context.state !== 'running'){ Tone.start(); }
+
+    // Create player with fade-in
+    const player = new Tone.Player({
+        url: "love.mp3",
+        loop: true,
+        autostart: true,
+        volume: -20  // start low
+    }).toDestination();
+
+    // Gradually fade in volume over 3 seconds
+    player.volume.rampTo(0, 3);
+
+    // Start synth sequence
+    Tone.Transport.start();
+
+    // Hide overlay
+    const overlay = document.getElementById("startButtonOverlay");
+    overlay.style.opacity = 0;
+    setTimeout(()=>overlay.remove(), 1500);
+}
+</script>
+
+</body>
+</html>
