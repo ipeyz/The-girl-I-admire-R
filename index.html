@@ -144,11 +144,6 @@
         <div class="snow"></div>
     </div>
 
-    <!-- Audio Player -->
-    <audio id="bgmusic" loop>
-        <source src="love.mp3" type="audio/mpeg">
-    </audio>
-
     <!-- Love Letter -->
     <main class="relative z-20 w-full max-w-2xl my-8">
         <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 sm:p-12 rounded-3xl shadow-2xl border border-white border-opacity-20 text-white leading-relaxed">
@@ -189,12 +184,26 @@
             synth.triggerAttackRelease(melodyNote,"8n",time+Tone.Time("4n").toSeconds());
         },[0,1,2,3],"4n").start(0);
 
-        function startExperience(){
-            const music=document.getElementById("bgmusic");
-            music.loop = true; // make sure it loops forever
-            music.volume=0.5; // soft start
-            music.play(); // start the song
+        // 🎵 Seamless loop version (no delay)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let audioBuffer;
 
+        fetch('love.mp3')
+            .then(res => res.arrayBuffer())
+            .then(data => audioCtx.decodeAudioData(data))
+            .then(buffer => audioBuffer = buffer);
+
+        function startExperience(){
+            // start your song seamlessly
+            if (audioBuffer) {
+                const source = audioCtx.createBufferSource();
+                source.buffer = audioBuffer;
+                source.loop = true;
+                source.connect(audioCtx.destination);
+                source.start(0);
+            }
+
+            // start the ambient synth
             if(Tone.context.state!=='running'){Tone.start();}
             Tone.Transport.start();
 
