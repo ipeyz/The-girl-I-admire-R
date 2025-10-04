@@ -9,27 +9,40 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap');
 body {
+    margin: 0;
     background-color: #0d1226;
     font-family: 'Cormorant Garamond', serif;
     overflow-x: hidden;
 }
+
+/* Aurora */
 .aurora { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
 .aurora-layer { position: absolute; bottom: 0; width: 150%; height: 200%; border-radius: 50%; opacity: 0.6; filter: blur(80px); animation: aurora-move 40s infinite linear alternate; }
 .aurora-layer:nth-child(1){left:-20%;background:radial-gradient(circle at center,rgba(144,238,144,0.4)0%,transparent70%);animation-duration:35s;}
 .aurora-layer:nth-child(2){left:50%;background:radial-gradient(circle at center,rgba(173,216,230,0.5)0%,transparent65%);animation-duration:45s;animation-delay:-10s;}
 .aurora-layer:nth-child(3){left:10%;background:radial-gradient(circle at center,rgba(70,130,180,0.4)0%,transparent80%);animation-duration:40s;animation-delay:-5s;}
 @keyframes aurora-move{0%{transform:translate(0,0)rotate(0deg);}50%{transform:translate(-10%,10%)rotate(5deg);}100%{transform:translate(0,0)rotate(0deg);}}
+
 .snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;}
 .snow{position:absolute;width:3px;height:3px;background:transparent;border-radius:50%;opacity:0.8;box-shadow:0 0 1px #fff,20px 100px 1px rgba(255,255,255,0.8),40px 200px 1px rgba(255,255,255,0.7),60px 300px 1px rgba(255,255,255,0.9),80px 400px 1px rgba(255,255,255,0.6),100px 500px 1px rgba(255,255,255,0.8);animation:snowfall 20s linear infinite;}
 @keyframes snowfall{0%{transform:translateY(-100vh);}100%{transform:translateY(100vh);}}
+
 .bird-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:6;}
 .bird{position:absolute;width:32px;height:32px;fill:#5e3814;opacity:0.8;animation:fly-across linear infinite;}
 @keyframes fly-across{0%{transform:translate(-10vw,80vh)scale(0.8)rotate(5deg);}50%{transform:translate(50vw,40vh)scale(1)rotate(-5deg);}100%{transform:translate(110vw,60vh)scale(0.8)rotate(5deg);}}
 .bird-1{top:10%;left:-5%;animation-duration:40s;}
 .bird-2{top:30%;left:-15%;animation-duration:35s;animation-delay:10s;}
 .bird-3{top:50%;left:-25%;animation-duration:45s;animation-delay:20s;}
+
 .letter-content{white-space:pre-wrap;z-index:10;}
-#startButtonOverlay{transition:opacity 1.5s ease-in-out;cursor:pointer;pointer-events-auto;}
+
+/* Overlay */
+#startButtonOverlay{transition:opacity 1.5s ease-in-out;cursor:pointer;opacity:1;pointer-events:auto;}
+
+/* Love Button */
+#loveButton{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:50;}
+#lovePopup{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:60;}
+#lovePopupContent{background:white;background:rgba(255,255,255,0.1);backdrop-blur:10px;padding:2rem;border-radius:2rem;max-width:500px;text-align:center;color:white;}
 </style>
 </head>
 <body class="flex items-center justify-center p-4">
@@ -88,6 +101,30 @@ zariff
     </div>
 </div>
 
+<!-- Love Button -->
+<div id="loveButton">
+    <button class="px-6 py-3 bg-pink-500 hover:bg-pink-400 text-white font-bold rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+        💌 Love
+    </button>
+</div>
+
+<!-- Love Popup -->
+<div id="lovePopup">
+    <div id="lovePopupContent">
+        <h2 class="text-2xl font-bold mb-4 text-pink-200">💌 From Me to You</h2>
+        <p class="text-lg leading-relaxed">
+            this letter can even tell how much I love you sayaang,<br>
+            you will always be my special place in my heart,<br>
+            I love you so much please don't leave me<br>
+            I give you all my love,<br>
+            I sayang you baby muach💕💐
+        </p>
+        <button id="closePopup" class="mt-6 px-6 py-2 bg-pink-500 hover:bg-pink-400 text-white rounded-full shadow transition duration-300 transform hover:scale-105">
+            Close
+        </button>
+    </div>
+</div>
+
 <script>
 // --- Synth Music ---
 const synth = new Tone.PolySynth(Tone.Synth, {
@@ -108,29 +145,35 @@ const sequence = new Tone.Sequence((time,i)=>{
 sequence.loop = true;
 sequence.loopEnd = "4m";
 
-// --- Start Function with smooth fade-in ---
+// --- Start Function ---
 function startExperience(){
     if(Tone.context.state !== 'running'){ Tone.start(); }
 
-    // Create player with fade-in
     const player = new Tone.Player({
         url: "love.mp3",
         loop: true,
         autostart: true,
-        volume: -20  // start low
+        volume: -20
     }).toDestination();
-
-    // Gradually fade in volume over 3 seconds
     player.volume.rampTo(0, 3);
-
-    // Start synth sequence
     Tone.Transport.start();
 
-    // Hide overlay
     const overlay = document.getElementById("startButtonOverlay");
     overlay.style.opacity = 0;
     setTimeout(()=>overlay.remove(), 1500);
 }
+
+// --- Love Button Functionality ---
+const loveBtn = document.querySelector("#loveButton button");
+const lovePopup = document.getElementById("lovePopup");
+const closePopup = document.getElementById("closePopup");
+
+loveBtn.addEventListener("click", ()=>{
+    lovePopup.style.display = "flex";
+});
+closePopup.addEventListener("click", ()=>{
+    lovePopup.style.display = "none";
+});
 </script>
 
 </body>
