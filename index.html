@@ -8,36 +8,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap');
-body {
-    margin:0;
-    font-family: 'Cormorant Garamond', serif;
-    overflow-x:hidden;
-    background-color:#0d1226;
-}
+body { margin:0; font-family:'Cormorant Garamond', serif; background:#0d1226; overflow-x:hidden; }
 
 /* Scene 1 */
-#scene1 {
-    position: fixed; inset:0;
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
-    background: linear-gradient(to bottom,#0d1226,#1a1f4b);
-    color:white; text-align:center; z-index:1000;
-}
-#scene1 h1 {
-    font-size:2.5rem; animation:bounce 2s infinite;
-}
+#scene1 { position:fixed; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(to bottom,#0d1226,#1a1f4b); color:white; text-align:center; z-index:1000; }
+#scene1 h1 { font-size:2.5rem; animation:bounce 2s infinite; }
 @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
-#scene1 button {
-    margin-top:2rem; padding:0.75rem 2rem; background-color:#f472b6; border-radius:9999px;
-    font-weight:bold; color:white; cursor:pointer; transition:all 0.3s;
-}
+#scene1 button { margin-top:2rem; padding:0.75rem 2rem; background-color:#f472b6; border-radius:9999px; font-weight:bold; color:white; cursor:pointer; transition:all 0.3s; }
 #scene1 button:hover { background-color:#f9a8d4; transform:scale(1.05); }
 
 /* Scene 2 */
-#scene2 { display:none; position:relative; }
+#scene2 { display:none; position:relative; height:100vh; width:100%; overflow:hidden; }
 
 /* Aurora */
-.aurora { position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none; z-index:1;}
-.aurora-layer { position:absolute; bottom:0; width:150%; height:200%; border-radius:50%; opacity:0.6; filter:blur(80px); animation:aurora-move 40s infinite linear alternate;}
+.aurora { position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none; z-index:1; }
+.aurora-layer { position:absolute; bottom:0; width:150%; height:200%; border-radius:50%; opacity:0.6; filter:blur(80px); animation:aurora-move 40s infinite linear alternate; }
 .aurora-layer:nth-child(1){left:-20%;background:radial-gradient(circle,rgba(144,238,144,0.4)0%,transparent70%);animation-duration:35s;}
 .aurora-layer:nth-child(2){left:50%;background:radial-gradient(circle,rgba(173,216,230,0.5)0%,transparent65%);animation-duration:45s;animation-delay:-10s;}
 .aurora-layer:nth-child(3){left:10%;background:radial-gradient(circle,rgba(70,130,180,0.4)0%,transparent80%);animation-duration:40s;animation-delay:-5s;}
@@ -46,9 +31,9 @@ body {
 /* Snow */
 .snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;}
 .snow{position:absolute;width:3px;height:3px;background:transparent;border-radius:50%;opacity:0.8;
-    box-shadow:0 0 1px #fff,20px 100px 1px rgba(255,255,255,0.8),40px 200px 1px rgba(255,255,255,0.7),
-    60px 300px 1px rgba(255,255,255,0.9),80px 400px 1px rgba(255,255,255,0.6),100px 500px 1px rgba(255,255,255,0.8);
-    animation:snowfall 20s linear infinite;}
+box-shadow:0 0 1px #fff,20px 100px 1px rgba(255,255,255,0.8),40px 200px 1px rgba(255,255,255,0.7),
+60px 300px 1px rgba(255,255,255,0.9),80px 400px 1px rgba(255,255,255,0.6),100px 500px 1px rgba(255,255,255,0.8);
+animation:snowfall 20s linear infinite;}
 @keyframes snowfall{0%{transform:translateY(-100vh);}100%{transform:translateY(100vh);}}
 
 /* Birds */
@@ -59,23 +44,14 @@ body {
 .bird-2{top:30%;left:-15%;animation-duration:35s;animation-delay:10s;}
 .bird-3{top:50%;left:-25%;animation-duration:45s;animation-delay:20s;}
 
-.letter-content{white-space:pre-wrap;z-index:10;color:white;}
+.letter-content{white-space:pre-wrap; z-index:10; color:white;}
 
 /* Fireworks */
 #fireworkCanvas{position:fixed; inset:0; pointer-events:none; z-index:2;}
 
 /* Overlay */
-#startButtonOverlay{
-    display:none;
-    position: fixed; inset:0;
-    background:rgba(0,0,0,0.7);
-    display:flex; align-items:center; justify-content:center;
-    z-index:50;
-}
-#startButtonOverlay button{
-    padding:0.75rem 2rem; background-color:#f472b6; color:white; font-weight:bold; border-radius:9999px; cursor:pointer;
-    transition: all 0.3s;
-}
+#startButtonOverlay{ display:flex; position: fixed; inset:0; background:rgba(0,0,0,0.7); align-items:center; justify-content:center; z-index:50; }
+#startButtonOverlay button{ padding:0.75rem 2rem; background-color:#f472b6; color:white; font-weight:bold; border-radius:9999px; cursor:pointer; transition:all 0.3s; }
 #startButtonOverlay button:hover{ background-color:#f9a8d4; transform:scale(1.05);}
 </style>
 </head>
@@ -128,7 +104,7 @@ you make me wanttt to be better not because you ask but because you deserve it y
 
 sometimes i sit and think about how lucky i am to have you i could have met anyone but fate chose you the one who makes my heart beat faster my soul feel peaceful my world feel brighter i loveee you in a way that is quiet but strong deep but gentle endless but real i loveee you for your kindness your patience your beautiful heart i loveee how you accept me even when i am not perfect
 
-sayaaangg i wanttt you to know that no matter what happens you will always have a place in me you are not just someone i loveee you are someone i cherish someone i feel connected to in a way that words will never explain i dont need big promises because my heart already belongs to you and maybeee it always will
+raisyatul i wanttt you to know that no matter what happens you will always have a place in me you are not just someone i loveee you are someone i cherish someone i feel connected to in a way that words will never explain i dont need big promises because my heart already belongs to you and maybeee it always will
 
 when i think about the future i see you in it i see us sharing soft mornings silly laughs late night talks and all the small things that make loveee feel real i wanttt to hold your hand through every high and every low i wanttt to be the one you can trust the one who never leaves your side
 
@@ -139,14 +115,6 @@ zariff
             </pre>
         </div>
     </main>
-
-    <!-- Overlay Start Button -->
-    <div id="startButtonOverlay">
-        <div>
-            <p class="text-xl sm:text-2xl text-white mb-4 text-center">A melody awaits...</p>
-            <button onclick="startExperience()">I LOVE YOU SO MUCH RAISYA</button>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -154,14 +122,16 @@ zariff
 document.getElementById("scene1Next").addEventListener("click", () => {
     document.getElementById("scene1").style.display = "none";
     document.getElementById("scene2").style.display = "block";
-    document.getElementById("startButtonOverlay").style.display = "flex";
+
+    // Create overlay button dynamically
+    const overlay = document.createElement("div");
+    overlay.id = "startButtonOverlay";
+    overlay.innerHTML = `<button onclick="startExperience()">I LOVE YOU SO MUCH RAISYA</button>`;
+    document.body.appendChild(overlay);
 });
 
 // Tone.js Music
-const synth = new Tone.PolySynth(Tone.Synth, {
-    oscillator:{type:'sine'},
-    envelope:{attack:1,decay:0.5,sustain:0.5,release:2}
-}).toDestination();
+const synth = new Tone.PolySynth(Tone.Synth,{oscillator:{type:'sine'},envelope:{attack:1,decay:0.5,sustain:0.5,release:2}}).toDestination();
 const reverb = new Tone.Reverb(2).toDestination();
 synth.connect(reverb);
 Tone.Transport.bpm.value=80;
@@ -169,38 +139,4 @@ const notes=[["A3","C4","E4"],["F3","A3","C4"],["G3","B3","D4"],["C3","E3","G3"]
 const sequence=new Tone.Sequence((time,i)=>{
     const chord=notes[i%notes.length];
     synth.triggerAttackRelease(chord,"2n",time);
-    synth.triggerAttackRelease(chord[i%chord.length],"8n",time+Tone.Time("4n").toSeconds());
-},[0,1,2,3],"4n").start(0);
-sequence.loop=true;
-sequence.loopEnd="4m";
-
-// Start Experience
-function startExperience(){
-    const music=document.getElementById("bgmusic");
-    music.volume=0.6;
-    music.loop=true;
-    music.play();
-    music.addEventListener('ended',()=>{music.currentTime=0;music.play();});
-    if(Tone.context.state!=='running'){Tone.start();}
-    Tone.Transport.start();
-    const overlay=document.getElementById("startButtonOverlay");
-    overlay.style.opacity=0;
-    setTimeout(()=>overlay.remove(),1500);
-}
-
-// Simple Fireworks
-const canvas=document.getElementById("fireworkCanvas");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-let fireworks=[];
-function Firework(x,y){
-    this.x=x; this.y=y; this.particles=[];
-    for(let i=0;i<50;i++){
-        this.particles.push({x:this.x, y:this.y, vx:(Math.random()-0.5)*5, vy:(Math.random()-0.5)*5, alpha:1, color:`hsl(${Math.random()*360},100%,60%)`});
-    }
-}
-function drawFirework(fw){
-    fw.particles.forEach(p=>{
-        ctx.fillStyle=p.color; ctx.globalAlpha=p.alpha;
-        ctx.beginPath(); ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.fill
+    synth.triggerAttackRelease(chord[i%
